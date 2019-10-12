@@ -12,7 +12,7 @@ public class Application extends AbstractModule {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new Application());
 
-        TransferController transferController = injector.getInstance(TransferController.class);
+        injector.getInstance(TransferController.class);
     }
 
     @Override
