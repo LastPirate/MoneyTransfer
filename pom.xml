@@ -40,6 +40,13 @@
         </plugins>
     </build>
 
+    <properties>
+        <start-class>com.hometask.moneytransfer.Application</start-class>
+        <main.class>com.hometask.moneytransfer.Application</main.class>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
         <dependency>
@@ -52,6 +59,20 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
+            <version>3.12.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>3.12.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-meta -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
             <version>3.12.1</version>
         </dependency>
 
