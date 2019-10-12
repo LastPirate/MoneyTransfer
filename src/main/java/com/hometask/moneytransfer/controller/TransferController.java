@@ -15,9 +15,8 @@ public class TransferController {
     @Inject
     public TransferController(TransferService transferService) {
         this.transferService = transferService;
-    }
 
-    public void initEndpoints() {
+        //Initializing endpoints
         createAccount();
         createWallet();
         getTransferBook();

@@ -13,7 +13,6 @@ public class Application extends AbstractModule {
         Injector injector = Guice.createInjector(new Application());
 
         TransferController transferController = injector.getInstance(TransferController.class);
-        transferController.initEndpoints();
     }
 
     @Override
