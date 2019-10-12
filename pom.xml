@@ -25,7 +25,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>holding.ilm.imquant.Application</mainClass>
+                            <mainClass>com.hometask.moneytransfer.Application</mainClass>
                             <attachToBuild>true</attachToBuild>
                             <filename>
                                 ${project.artifactId}.${project.packaging}
