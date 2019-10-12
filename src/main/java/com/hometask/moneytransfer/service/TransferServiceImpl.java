@@ -1,9 +1,7 @@
 package com.hometask.moneytransfer.service;
 
 import com.google.inject.Singleton;
-import com.hometask.moneytransfer.model.Account;
-import com.hometask.moneytransfer.model.Transaction;
-import com.hometask.moneytransfer.model.Wallet;
+import com.hometask.moneytransfer.model.db.tables.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class TransferServiceImpl implements TransferService {
         return new Wallet();
     }
 
-    public List<Transaction> getTransferBook() {
+    public List<Transfer> getTransferBook() {
         return new ArrayList<>();
     }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.12.0.xsd">
+    <jdbc>
+        <driver>org.h2.Driver</driver>
+        <url>jdbc:h2:file:C:\Users\First\Desktop\money_transfer</url>
+        <user>sa</user>
+        <password></password>
+        <properties>
+            <property>
+                <key>charSet</key>
+                <value>utf-8</value>
+            </property>
+        </properties>
+    </jdbc>
+    <generator>
+        <database>
+			<name>org.jooq.meta.h2.H2Database</name>
+            <inputSchema>PUBLIC</inputSchema>
+        </database>	
+        <target>
+            <packageName>com.hometask.moneytransfer.model.db</packageName>
+            <directory>src/main/java</directory>
+        </target>
+    </generator>
+</configuration>

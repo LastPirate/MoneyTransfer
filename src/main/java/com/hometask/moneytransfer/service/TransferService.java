@@ -1,8 +1,6 @@
 package com.hometask.moneytransfer.service;
 
-import com.hometask.moneytransfer.model.Account;
-import com.hometask.moneytransfer.model.Transaction;
-import com.hometask.moneytransfer.model.Wallet;
+import com.hometask.moneytransfer.model.db.tables.*;
 
 import java.util.List;
 
@@ -12,12 +10,11 @@ public interface TransferService {
 
     Wallet createWallet();
 
-    List<Transaction> getTransferBook();
+    List<Transfer> getTransferBook();
 
     void makeTransfer();
 
     void putMoney();
 
     void withdrawMoney();
-
 }
