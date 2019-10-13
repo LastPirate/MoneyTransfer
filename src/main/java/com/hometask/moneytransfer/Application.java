@@ -4,9 +4,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
-import com.hometask.moneytransfer.controller.TransferController;
-import com.hometask.moneytransfer.service.TransferService;
-import com.hometask.moneytransfer.service.TransferServiceImpl;
+import com.hometask.moneytransfer.controller.TransferSystemController;
+import com.hometask.moneytransfer.service.TransferSystemService;
+import com.hometask.moneytransfer.service.TransferSystemServiceImpl;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -23,7 +23,7 @@ public class Application extends AbstractModule {
     public static void main(String[] args) {
         try {
             Injector injector = Guice.createInjector(new Application());
-            injector.getInstance(TransferController.class);
+            injector.getInstance(TransferSystemController.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,6 +41,6 @@ public class Application extends AbstractModule {
             e.printStackTrace();
         }
 
-        bind(TransferService.class).to(TransferServiceImpl.class);
+        bind(TransferSystemService.class).to(TransferSystemServiceImpl.class);
     }
 }
