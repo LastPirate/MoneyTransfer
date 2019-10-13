@@ -4,12 +4,13 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
-import com.hometask.moneytransfer.controller.TransferSystemController;
+import com.hometask.moneytransfer.controller.AccountController;
+import com.hometask.moneytransfer.controller.TransferController;
+import com.hometask.moneytransfer.controller.WalletController;
 import com.hometask.moneytransfer.model.db.tables.Account;
 import com.hometask.moneytransfer.model.db.tables.Transfer;
 import com.hometask.moneytransfer.model.db.tables.Wallet;
-import com.hometask.moneytransfer.service.TransferSystemService;
-import com.hometask.moneytransfer.service.TransferSystemServiceImpl;
+import com.hometask.moneytransfer.service.*;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -28,7 +29,9 @@ public class Application extends AbstractModule {
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new Application());
-        injector.getInstance(TransferSystemController.class);
+        injector.getInstance(AccountController.class);
+        injector.getInstance(WalletController.class);
+        injector.getInstance(TransferController.class);
     }
 
     @Override
@@ -43,6 +46,8 @@ public class Application extends AbstractModule {
                             constraint().primaryKey(Account.ACCOUNT.ID)
                     ).execute();
 
+            dslContext.insertInto(Account.ACCOUNT).columns(Account.ACCOUNT.NAME).values("MONEY_SYSTEM");
+
             dslContext.createTable(Wallet.WALLET)
                     .column(Wallet.WALLET.ID, SQLDataType.BIGINT.nullable(false).identity(true))
                     .column(Wallet.WALLET.ADDRESS, SQLDataType.VARCHAR(64).nullable(false))
@@ -55,6 +60,8 @@ public class Application extends AbstractModule {
                             constraint().foreignKey(Wallet.WALLET.ACCOUNT_ID).references(Account.ACCOUNT, Account.ACCOUNT.ID).onDeleteCascade(),
                             constraint().unique(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY)
                     ).execute();
+
+            dslContext.insertInto(Wallet.WALLET).columns(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY, Wallet.WALLET.ACCOUNT_ID).values("MAIN", "ANY", 0L);
 
             dslContext.createTable(Transfer.TRANSFER)
                     .column(Transfer.TRANSFER.ID, SQLDataType.BIGINT.nullable(false).identity(true))
@@ -76,6 +83,9 @@ public class Application extends AbstractModule {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        bind(TransferSystemService.class).to(TransferSystemServiceImpl.class);
+
+        bind(AccountService.class).to(AccountServiceImpl.class);
+        bind(WalletService.class).to(WalletServiceImpl.class);
+        bind(TransferService.class).to(TransferServiceImpl.class);
     }
 }
