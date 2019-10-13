@@ -23,11 +23,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Wallet implements Serializable {
 
-    private static final long serialVersionUID = 327900414;
+    private static final long serialVersionUID = -1189860276;
 
     private Long       id;
-    private String     currency;
     private String     address;
+    private String     currency;
     private BigDecimal balance;
     private Long       accountId;
 
@@ -35,22 +35,22 @@ public class Wallet implements Serializable {
 
     public Wallet(Wallet value) {
         this.id = value.id;
-        this.currency = value.currency;
         this.address = value.address;
+        this.currency = value.currency;
         this.balance = value.balance;
         this.accountId = value.accountId;
     }
 
     public Wallet(
         Long       id,
-        String     currency,
         String     address,
+        String     currency,
         BigDecimal balance,
         Long       accountId
     ) {
         this.id = id;
-        this.currency = currency;
         this.address = address;
+        this.currency = currency;
         this.balance = balance;
         this.accountId = accountId;
     }
@@ -63,20 +63,20 @@ public class Wallet implements Serializable {
         this.id = id;
     }
 
-    public String getCurrency() {
-        return this.currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getAddress() {
         return this.address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public BigDecimal getBalance() {
@@ -100,8 +100,8 @@ public class Wallet implements Serializable {
         StringBuilder sb = new StringBuilder("Wallet (");
 
         sb.append(id);
-        sb.append(", ").append(currency);
         sb.append(", ").append(address);
+        sb.append(", ").append(currency);
         sb.append(", ").append(balance);
         sb.append(", ").append(accountId);
 

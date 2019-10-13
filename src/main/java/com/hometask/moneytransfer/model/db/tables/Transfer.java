@@ -10,6 +10,7 @@ import com.hometask.moneytransfer.model.db.Public;
 import com.hometask.moneytransfer.model.db.tables.records.TransferRecord;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row6;
+import org.jooq.Row7;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -43,7 +44,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Transfer extends TableImpl<TransferRecord> {
 
-    private static final long serialVersionUID = 797867200;
+    private static final long serialVersionUID = -1230440644;
 
     /**
      * The reference instance of <code>PUBLIC.TRANSFER</code>
@@ -69,14 +70,19 @@ public class Transfer extends TableImpl<TransferRecord> {
     public final TableField<TransferRecord, BigDecimal> QUANTITY = createField(DSL.name("QUANTITY"), org.jooq.impl.SQLDataType.DECIMAL(20, 2).nullable(false), this, "");
 
     /**
+     * The column <code>PUBLIC.TRANSFER.MOMENT</code>.
+     */
+    public final TableField<TransferRecord, LocalDateTime> MOMENT = createField(DSL.name("MOMENT"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
      * The column <code>PUBLIC.TRANSFER.EXCHANGE_RATE</code>.
      */
-    public final TableField<TransferRecord, Byte> EXCHANGE_RATE = createField(DSL.name("EXCHANGE_RATE"), org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+    public final TableField<TransferRecord, Byte> EXCHANGE_RATE = createField(DSL.name("EXCHANGE_RATE"), org.jooq.impl.SQLDataType.TINYINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.TINYINT)), this, "");
 
     /**
      * The column <code>PUBLIC.TRANSFER.DESCRIPTION</code>.
      */
-    public final TableField<TransferRecord, String> DESCRIPTION = createField(DSL.name("DESCRIPTION"), org.jooq.impl.SQLDataType.VARCHAR(200).nullable(false), this, "");
+    public final TableField<TransferRecord, String> DESCRIPTION = createField(DSL.name("DESCRIPTION"), org.jooq.impl.SQLDataType.VARCHAR(200).nullable(true), this, "");
 
     /**
      * The column <code>PUBLIC.TRANSFER.SENDER_ID</code>.
@@ -186,11 +192,11 @@ public class Transfer extends TableImpl<TransferRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row6 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Long, BigDecimal, Byte, String, Long, Long> fieldsRow() {
-        return (Row6) super.fieldsRow();
+    public Row7<Long, BigDecimal, LocalDateTime, Byte, String, Long, Long> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 }

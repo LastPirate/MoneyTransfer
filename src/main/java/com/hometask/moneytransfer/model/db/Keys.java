@@ -49,6 +49,8 @@ public class Keys {
     public static final UniqueKey<AccountRecord> CONSTRAINT_E4 = UniqueKeys0.CONSTRAINT_E4;
     public static final UniqueKey<TransferRecord> CONSTRAINT_7 = UniqueKeys0.CONSTRAINT_7;
     public static final UniqueKey<WalletRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
+    public static final UniqueKey<WalletRecord> CONSTRAINT_98 = UniqueKeys0.CONSTRAINT_98;
+    public static final UniqueKey<WalletRecord> CONSTRAINT_982D = UniqueKeys0.CONSTRAINT_982D;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -56,7 +58,7 @@ public class Keys {
 
     public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7A = ForeignKeys0.CONSTRAINT_7A;
     public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7AF = ForeignKeys0.CONSTRAINT_7AF;
-    public static final ForeignKey<WalletRecord, AccountRecord> CONSTRAINT_98 = ForeignKeys0.CONSTRAINT_98;
+    public static final ForeignKey<WalletRecord, AccountRecord> CONSTRAINT_982 = ForeignKeys0.CONSTRAINT_982;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -73,11 +75,13 @@ public class Keys {
         public static final UniqueKey<AccountRecord> CONSTRAINT_E4 = Internal.createUniqueKey(Account.ACCOUNT, "CONSTRAINT_E4", Account.ACCOUNT.NAME);
         public static final UniqueKey<TransferRecord> CONSTRAINT_7 = Internal.createUniqueKey(Transfer.TRANSFER, "CONSTRAINT_7", Transfer.TRANSFER.ID);
         public static final UniqueKey<WalletRecord> CONSTRAINT_9 = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_9", Wallet.WALLET.ID);
+        public static final UniqueKey<WalletRecord> CONSTRAINT_98 = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_98", Wallet.WALLET.ADDRESS);
+        public static final UniqueKey<WalletRecord> CONSTRAINT_982D = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_982D", Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY);
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7A = Internal.createForeignKey(Keys.CONSTRAINT_9, Transfer.TRANSFER, "CONSTRAINT_7A", Transfer.TRANSFER.SENDER_ID);
-        public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7AF = Internal.createForeignKey(Keys.CONSTRAINT_9, Transfer.TRANSFER, "CONSTRAINT_7AF", Transfer.TRANSFER.RECIPIENT_ID);
-        public static final ForeignKey<WalletRecord, AccountRecord> CONSTRAINT_98 = Internal.createForeignKey(Keys.CONSTRAINT_E, Wallet.WALLET, "CONSTRAINT_98", Wallet.WALLET.ACCOUNT_ID);
+        public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7A = Internal.createForeignKey(com.hometask.moneytransfer.model.db.Keys.CONSTRAINT_9, Transfer.TRANSFER, "CONSTRAINT_7A", Transfer.TRANSFER.SENDER_ID);
+        public static final ForeignKey<TransferRecord, WalletRecord> CONSTRAINT_7AF = Internal.createForeignKey(com.hometask.moneytransfer.model.db.Keys.CONSTRAINT_9, Transfer.TRANSFER, "CONSTRAINT_7AF", Transfer.TRANSFER.RECIPIENT_ID);
+        public static final ForeignKey<WalletRecord, AccountRecord> CONSTRAINT_982 = Internal.createForeignKey(com.hometask.moneytransfer.model.db.Keys.CONSTRAINT_E, Wallet.WALLET, "CONSTRAINT_982", Wallet.WALLET.ACCOUNT_ID);
     }
 }

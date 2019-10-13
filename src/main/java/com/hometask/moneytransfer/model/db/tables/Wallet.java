@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Wallet extends TableImpl<WalletRecord> {
 
-    private static final long serialVersionUID = -1073173472;
+    private static final long serialVersionUID = 2052851475;
 
     /**
      * The reference instance of <code>PUBLIC.WALLET</code>
@@ -64,19 +64,19 @@ public class Wallet extends TableImpl<WalletRecord> {
     public final TableField<WalletRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>PUBLIC.WALLET.CURRENCY</code>.
-     */
-    public final TableField<WalletRecord, String> CURRENCY = createField(DSL.name("CURRENCY"), org.jooq.impl.SQLDataType.VARCHAR(3).nullable(false), this, "");
-
-    /**
      * The column <code>PUBLIC.WALLET.ADDRESS</code>.
      */
     public final TableField<WalletRecord, String> ADDRESS = createField(DSL.name("ADDRESS"), org.jooq.impl.SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
+     * The column <code>PUBLIC.WALLET.CURRENCY</code>.
+     */
+    public final TableField<WalletRecord, String> CURRENCY = createField(DSL.name("CURRENCY"), org.jooq.impl.SQLDataType.VARCHAR(3).nullable(false), this, "");
+
+    /**
      * The column <code>PUBLIC.WALLET.BALANCE</code>.
      */
-    public final TableField<WalletRecord, BigDecimal> BALANCE = createField(DSL.name("BALANCE"), org.jooq.impl.SQLDataType.DECIMAL.nullable(false), this, "");
+    public final TableField<WalletRecord, BigDecimal> BALANCE = createField(DSL.name("BALANCE"), org.jooq.impl.SQLDataType.DECIMAL(20, 2).nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.DECIMAL)), this, "");
 
     /**
      * The column <code>PUBLIC.WALLET.ACCOUNT_ID</code>.
@@ -123,7 +123,7 @@ public class Wallet extends TableImpl<WalletRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.CONSTRAINT_INDEX_9, Indexes.PRIMARY_KEY_9);
+        return Arrays.<Index>asList(Indexes.CONSTRAINT_INDEX_9, Indexes.CONSTRAINT_INDEX_98, Indexes.CONSTRAINT_INDEX_982, Indexes.PRIMARY_KEY_9);
     }
 
     @Override
@@ -138,16 +138,16 @@ public class Wallet extends TableImpl<WalletRecord> {
 
     @Override
     public List<UniqueKey<WalletRecord>> getKeys() {
-        return Arrays.<UniqueKey<WalletRecord>>asList(Keys.CONSTRAINT_9);
+        return Arrays.<UniqueKey<WalletRecord>>asList(Keys.CONSTRAINT_9, Keys.CONSTRAINT_98, Keys.CONSTRAINT_982D);
     }
 
     @Override
     public List<ForeignKey<WalletRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<WalletRecord, ?>>asList(Keys.CONSTRAINT_98);
+        return Arrays.<ForeignKey<WalletRecord, ?>>asList(Keys.CONSTRAINT_982);
     }
 
     public Account account() {
-        return new Account(this, Keys.CONSTRAINT_98);
+        return new Account(this, Keys.CONSTRAINT_982);
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.google.inject.Injector;
 import com.google.inject.name.Names;
 import com.hometask.moneytransfer.controller.TransferSystemController;
 import com.hometask.moneytransfer.model.db.tables.Account;
+import com.hometask.moneytransfer.model.db.tables.Transfer;
+import com.hometask.moneytransfer.model.db.tables.Wallet;
 import com.hometask.moneytransfer.service.TransferSystemService;
 import com.hometask.moneytransfer.service.TransferSystemServiceImpl;
 import org.jooq.Configuration;
@@ -16,11 +18,13 @@ import org.jooq.impl.SQLDataType;
 
 import java.sql.DriverManager;
 
+import static org.jooq.impl.DSL.constraint;
+
 public class Application extends AbstractModule {
 
     private static final String USER_NAME = "sa";
     private static final String PASSWORD = "";
-    private static final String URL = "jdbc:h2:file:C:\\Users\\First\\Desktop\\money_transfer";
+    private static final String URL = "jdbc:h2:mem:money_transfer";
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new Application());
@@ -31,6 +35,41 @@ public class Application extends AbstractModule {
     protected void configure() {
         try {
             DSLContext dslContext = DSL.using(DriverManager.getConnection(URL, USER_NAME, PASSWORD), SQLDialect.H2);
+
+            dslContext.createTable(Account.ACCOUNT)
+                    .column(Account.ACCOUNT.ID, SQLDataType.BIGINT.nullable(false).identity(true))
+                    .column(Account.ACCOUNT.NAME, SQLDataType.VARCHAR(20).nullable(false))
+                    .constraints(
+                            constraint().primaryKey(Account.ACCOUNT.ID)
+                    ).execute();
+
+            dslContext.createTable(Wallet.WALLET)
+                    .column(Wallet.WALLET.ID, SQLDataType.BIGINT.nullable(false).identity(true))
+                    .column(Wallet.WALLET.ADDRESS, SQLDataType.VARCHAR(64).nullable(false))
+                    .column(Wallet.WALLET.CURRENCY, SQLDataType.VARCHAR(3).nullable(false))
+                    .column(Wallet.WALLET.BALANCE, SQLDataType.DECIMAL(20, 2).nullable(false).defaultValue(DSL.field("0", SQLDataType.DECIMAL)))
+                    .column(Wallet.WALLET.ACCOUNT_ID, SQLDataType.BIGINT.nullable(false))
+                    .constraints(
+                            constraint().primaryKey(Wallet.WALLET.ID),
+                            constraint().unique(Wallet.WALLET.ADDRESS),
+                            constraint().foreignKey(Wallet.WALLET.ACCOUNT_ID).references(Account.ACCOUNT, Account.ACCOUNT.ID).onDeleteCascade(),
+                            constraint().unique(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY)
+                    ).execute();
+
+            dslContext.createTable(Transfer.TRANSFER)
+                    .column(Transfer.TRANSFER.ID, SQLDataType.BIGINT.nullable(false).identity(true))
+                    .column(Transfer.TRANSFER.QUANTITY, SQLDataType.DECIMAL(20, 2).nullable(false))
+                    .column(Transfer.TRANSFER.MOMENT, SQLDataType.LOCALDATETIME.nullable(false).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)))
+                    .column(Transfer.TRANSFER.EXCHANGE_RATE, SQLDataType.TINYINT.nullable(false).defaultValue(DSL.field("1", SQLDataType.TINYINT)))
+                    .column(Transfer.TRANSFER.DESCRIPTION, SQLDataType.VARCHAR(200).nullable(true))
+                    .column(Transfer.TRANSFER.SENDER_ID, SQLDataType.BIGINT.nullable(false))
+                    .column(Transfer.TRANSFER.RECIPIENT_ID, SQLDataType.BIGINT.nullable(false))
+                    .constraints(
+                            constraint().primaryKey(Transfer.TRANSFER.ID),
+                            constraint().foreignKey(Transfer.TRANSFER.SENDER_ID).references(Wallet.WALLET, Wallet.WALLET.ID).onDeleteCascade(),
+                            constraint().foreignKey(Transfer.TRANSFER.RECIPIENT_ID).references(Wallet.WALLET, Wallet.WALLET.ID).onDeleteCascade()
+                    ).execute();
+
             bind(Configuration.class)
                     .annotatedWith(Names.named("DataBaseConfiguration"))
                     .toInstance(dslContext.configuration());

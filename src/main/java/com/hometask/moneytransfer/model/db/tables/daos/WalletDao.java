@@ -70,20 +70,6 @@ public class WalletDao extends DAOImpl<WalletRecord, com.hometask.moneytransfer.
     }
 
     /**
-     * Fetch records that have <code>CURRENCY BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchRangeOfCurrency(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Wallet.WALLET.CURRENCY, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>CURRENCY IN (values)</code>
-     */
-    public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchByCurrency(String... values) {
-        return fetch(Wallet.WALLET.CURRENCY, values);
-    }
-
-    /**
      * Fetch records that have <code>ADDRESS BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchRangeOfAddress(String lowerInclusive, String upperInclusive) {
@@ -95,6 +81,27 @@ public class WalletDao extends DAOImpl<WalletRecord, com.hometask.moneytransfer.
      */
     public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchByAddress(String... values) {
         return fetch(Wallet.WALLET.ADDRESS, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>ADDRESS = value</code>
+     */
+    public com.hometask.moneytransfer.model.db.tables.pojos.Wallet fetchOneByAddress(String value) {
+        return fetchOne(Wallet.WALLET.ADDRESS, value);
+    }
+
+    /**
+     * Fetch records that have <code>CURRENCY BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchRangeOfCurrency(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Wallet.WALLET.CURRENCY, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>CURRENCY IN (values)</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Wallet> fetchByCurrency(String... values) {
+        return fetch(Wallet.WALLET.CURRENCY, values);
     }
 
     /**

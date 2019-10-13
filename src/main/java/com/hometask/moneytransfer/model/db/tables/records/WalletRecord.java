@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements Record5<Long, String, String, BigDecimal, Long> {
 
-    private static final long serialVersionUID = 1209555030;
+    private static final long serialVersionUID = 749156914;
 
     /**
      * Setter for <code>PUBLIC.WALLET.ID</code>.
@@ -47,30 +47,30 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
     }
 
     /**
-     * Setter for <code>PUBLIC.WALLET.CURRENCY</code>.
-     */
-    public void setCurrency(String value) {
-        set(1, value);
-    }
-
-    /**
-     * Getter for <code>PUBLIC.WALLET.CURRENCY</code>.
-     */
-    public String getCurrency() {
-        return (String) get(1);
-    }
-
-    /**
      * Setter for <code>PUBLIC.WALLET.ADDRESS</code>.
      */
     public void setAddress(String value) {
-        set(2, value);
+        set(1, value);
     }
 
     /**
      * Getter for <code>PUBLIC.WALLET.ADDRESS</code>.
      */
     public String getAddress() {
+        return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>PUBLIC.WALLET.CURRENCY</code>.
+     */
+    public void setCurrency(String value) {
+        set(2, value);
+    }
+
+    /**
+     * Getter for <code>PUBLIC.WALLET.CURRENCY</code>.
+     */
+    public String getCurrency() {
         return (String) get(2);
     }
 
@@ -132,12 +132,12 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
 
     @Override
     public Field<String> field2() {
-        return Wallet.WALLET.CURRENCY;
+        return Wallet.WALLET.ADDRESS;
     }
 
     @Override
     public Field<String> field3() {
-        return Wallet.WALLET.ADDRESS;
+        return Wallet.WALLET.CURRENCY;
     }
 
     @Override
@@ -157,12 +157,12 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
 
     @Override
     public String component2() {
-        return getCurrency();
+        return getAddress();
     }
 
     @Override
     public String component3() {
-        return getAddress();
+        return getCurrency();
     }
 
     @Override
@@ -182,12 +182,12 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
 
     @Override
     public String value2() {
-        return getCurrency();
+        return getAddress();
     }
 
     @Override
     public String value3() {
-        return getAddress();
+        return getCurrency();
     }
 
     @Override
@@ -208,13 +208,13 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
 
     @Override
     public WalletRecord value2(String value) {
-        setCurrency(value);
+        setAddress(value);
         return this;
     }
 
     @Override
     public WalletRecord value3(String value) {
-        setAddress(value);
+        setCurrency(value);
         return this;
     }
 
@@ -254,12 +254,12 @@ public class WalletRecord extends UpdatableRecordImpl<WalletRecord> implements R
     /**
      * Create a detached, initialised WalletRecord
      */
-    public WalletRecord(Long id, String currency, String address, BigDecimal balance, Long accountId) {
+    public WalletRecord(Long id, String address, String currency, BigDecimal balance, Long accountId) {
         super(Wallet.WALLET);
 
         set(0, id);
-        set(1, currency);
-        set(2, address);
+        set(1, address);
+        set(2, currency);
         set(3, balance);
         set(4, accountId);
     }

@@ -38,6 +38,8 @@ public class Indexes {
     public static final Index CONSTRAINT_INDEX_7A = Indexes0.CONSTRAINT_INDEX_7A;
     public static final Index PRIMARY_KEY_7 = Indexes0.PRIMARY_KEY_7;
     public static final Index CONSTRAINT_INDEX_9 = Indexes0.CONSTRAINT_INDEX_9;
+    public static final Index CONSTRAINT_INDEX_98 = Indexes0.CONSTRAINT_INDEX_98;
+    public static final Index CONSTRAINT_INDEX_982 = Indexes0.CONSTRAINT_INDEX_982;
     public static final Index PRIMARY_KEY_9 = Indexes0.PRIMARY_KEY_9;
 
     // -------------------------------------------------------------------------
@@ -50,7 +52,9 @@ public class Indexes {
         public static Index CONSTRAINT_INDEX_7 = Internal.createIndex("CONSTRAINT_INDEX_7", Transfer.TRANSFER, new OrderField[] { Transfer.TRANSFER.SENDER_ID }, false);
         public static Index CONSTRAINT_INDEX_7A = Internal.createIndex("CONSTRAINT_INDEX_7A", Transfer.TRANSFER, new OrderField[] { Transfer.TRANSFER.RECIPIENT_ID }, false);
         public static Index PRIMARY_KEY_7 = Internal.createIndex("PRIMARY_KEY_7", Transfer.TRANSFER, new OrderField[] { Transfer.TRANSFER.ID }, true);
-        public static Index CONSTRAINT_INDEX_9 = Internal.createIndex("CONSTRAINT_INDEX_9", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ACCOUNT_ID }, false);
+        public static Index CONSTRAINT_INDEX_9 = Internal.createIndex("CONSTRAINT_INDEX_9", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ADDRESS }, true);
+        public static Index CONSTRAINT_INDEX_98 = Internal.createIndex("CONSTRAINT_INDEX_98", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ACCOUNT_ID }, false);
+        public static Index CONSTRAINT_INDEX_982 = Internal.createIndex("CONSTRAINT_INDEX_982", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY }, true);
         public static Index PRIMARY_KEY_9 = Internal.createIndex("PRIMARY_KEY_9", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ID }, true);
     }
 }

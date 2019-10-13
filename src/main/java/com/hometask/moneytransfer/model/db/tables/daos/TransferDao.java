@@ -8,6 +8,7 @@ import com.hometask.moneytransfer.model.db.tables.Transfer;
 import com.hometask.moneytransfer.model.db.tables.records.TransferRecord;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -81,6 +82,20 @@ public class TransferDao extends DAOImpl<TransferRecord, com.hometask.moneytrans
      */
     public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchByQuantity(BigDecimal... values) {
         return fetch(Transfer.TRANSFER.QUANTITY, values);
+    }
+
+    /**
+     * Fetch records that have <code>MOMENT BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchRangeOfMoment(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(Transfer.TRANSFER.MOMENT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>MOMENT IN (values)</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchByMoment(LocalDateTime... values) {
+        return fetch(Transfer.TRANSFER.MOMENT, values);
     }
 
     /**

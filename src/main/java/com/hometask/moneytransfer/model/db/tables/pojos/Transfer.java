@@ -6,6 +6,7 @@ package com.hometask.moneytransfer.model.db.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.annotation.Generated;
 
@@ -23,20 +24,22 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Transfer implements Serializable {
 
-    private static final long serialVersionUID = 1131328823;
+    private static final long serialVersionUID = -1980477184;
 
-    private Long       id;
-    private BigDecimal quantity;
-    private Byte       exchangeRate;
-    private String     description;
-    private Long       senderId;
-    private Long       recipientId;
+    private Long          id;
+    private BigDecimal    quantity;
+    private LocalDateTime moment;
+    private Byte          exchangeRate;
+    private String        description;
+    private Long          senderId;
+    private Long          recipientId;
 
     public Transfer() {}
 
     public Transfer(Transfer value) {
         this.id = value.id;
         this.quantity = value.quantity;
+        this.moment = value.moment;
         this.exchangeRate = value.exchangeRate;
         this.description = value.description;
         this.senderId = value.senderId;
@@ -44,15 +47,17 @@ public class Transfer implements Serializable {
     }
 
     public Transfer(
-        Long       id,
-        BigDecimal quantity,
-        Byte       exchangeRate,
-        String     description,
-        Long       senderId,
-        Long       recipientId
+        Long          id,
+        BigDecimal    quantity,
+        LocalDateTime moment,
+        Byte          exchangeRate,
+        String        description,
+        Long          senderId,
+        Long          recipientId
     ) {
         this.id = id;
         this.quantity = quantity;
+        this.moment = moment;
         this.exchangeRate = exchangeRate;
         this.description = description;
         this.senderId = senderId;
@@ -73,6 +78,14 @@ public class Transfer implements Serializable {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    public LocalDateTime getMoment() {
+        return this.moment;
+    }
+
+    public void setMoment(LocalDateTime moment) {
+        this.moment = moment;
     }
 
     public Byte getExchangeRate() {
@@ -113,6 +126,7 @@ public class Transfer implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(quantity);
+        sb.append(", ").append(moment);
         sb.append(", ").append(exchangeRate);
         sb.append(", ").append(description);
         sb.append(", ").append(senderId);
