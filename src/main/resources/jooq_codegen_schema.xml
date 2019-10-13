@@ -22,6 +22,7 @@
             <directory>src/main/java</directory>
         </target>
         <generate>
+            <javaTimeTypes>true</javaTimeTypes>
             <daos>true</daos>
         </generate>
     </generator>
