@@ -22,7 +22,14 @@ public class TransferCustomDao extends TransferDao {
 
     public Transfer insertWithResult(Transfer transfer) {
         return this.mapper().map(DSL.using(this.configuration()).insertInto(this.getTable())
-                .values(transfer)
+                .columns(
+                        com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER.QUANTITY,
+                        com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER.EXCHANGE_RATE,
+                        com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER.DESCRIPTION,
+                        com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER.SENDER_ID,
+                        com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER.RECIPIENT_ID
+                )
+                .values(transfer.getQuantity(), transfer.getExchangeRate(), transfer.getDescription(), transfer.getSenderId(), transfer.getRecipientId())
                 .returning(this.getTable().asterisk())
                 .fetchOne());
     }

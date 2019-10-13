@@ -46,7 +46,7 @@ public class Application extends AbstractModule {
                             constraint().primaryKey(Account.ACCOUNT.ID)
                     ).execute();
 
-            dslContext.insertInto(Account.ACCOUNT).columns(Account.ACCOUNT.NAME).values("MONEY_SYSTEM");
+            dslContext.insertInto(Account.ACCOUNT).columns(Account.ACCOUNT.NAME).values("MONEY_SYSTEM").execute();
 
             dslContext.createTable(Wallet.WALLET)
                     .column(Wallet.WALLET.ID, SQLDataType.BIGINT.nullable(false).identity(true))
@@ -61,7 +61,7 @@ public class Application extends AbstractModule {
                             constraint().unique(Wallet.WALLET.ACCOUNT_ID, Wallet.WALLET.CURRENCY)
                     ).execute();
 
-            dslContext.insertInto(Wallet.WALLET).columns(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY, Wallet.WALLET.ACCOUNT_ID).values("MAIN", "ANY", 0L);
+            dslContext.insertInto(Wallet.WALLET).columns(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY, Wallet.WALLET.ACCOUNT_ID).values("MAIN", "ANY", 1L).execute();
 
             dslContext.createTable(Transfer.TRANSFER)
                     .column(Transfer.TRANSFER.ID, SQLDataType.BIGINT.nullable(false).identity(true))

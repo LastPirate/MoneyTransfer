@@ -26,7 +26,7 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public Transfer refillTransfer(Long walletId, BigDecimal quantity) {
         //Simulation of receipt of money in the transfer system
-        Wallet main = walletCustomDao.findById(0L);
+        Wallet main = walletCustomDao.findById(1L);
         main.setBalance(quantity);
         walletCustomDao.update(main);
 
@@ -36,7 +36,7 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public Transfer payoutTransfer(Long walletId, BigDecimal quantity) {
         // Modeling of withdrawal of money from the transfer system
-        Wallet main = walletCustomDao.findById(0L);
+        Wallet main = walletCustomDao.findById(1L);
         main.setBalance(new BigDecimal(-1 * quantity.doubleValue()));
         walletCustomDao.update(main);
 
