@@ -51,7 +51,7 @@ public class TransferController {
                         Long.parseLong(request.queryParams("recipientId")),
                         new BigDecimal(request.queryParams("quantity")),
                         request.queryParams("description"),
-                        request.params().containsKey("exchangeRate") ? Byte.parseByte(request.queryParams("exchangeRate")) : null
+                        request.params().containsKey("exchangeRate") ? Double.parseDouble(request.queryParams("exchangeRate")) : null
                 )
         );
     }

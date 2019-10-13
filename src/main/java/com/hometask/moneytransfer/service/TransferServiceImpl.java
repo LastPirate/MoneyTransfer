@@ -30,7 +30,7 @@ public class TransferServiceImpl implements TransferService {
         main.setBalance(quantity);
         walletCustomDao.update(main);
 
-        return customerTransfer(main.getId(), walletId, quantity, "Refill Wallet", (byte) 1);
+        return customerTransfer(main.getId(), walletId, quantity, "Refill Wallet", 1.0);
     }
 
     @Override
@@ -40,11 +40,11 @@ public class TransferServiceImpl implements TransferService {
         main.setBalance(new BigDecimal(-1 * quantity.doubleValue()));
         walletCustomDao.update(main);
 
-        return customerTransfer(walletId, main.getId(), quantity, "Refill Wallet", (byte) 1);
+        return customerTransfer(walletId, main.getId(), quantity, "Refill Wallet", 1.0);
     }
 
     @Override
-    public Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Byte exchangeRate) {
+    public Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Double exchangeRate) {
         Wallet sender = walletCustomDao.findById(senderId);
 
         if (sender.getBalance().doubleValue() < quantity.doubleValue()) {
@@ -64,7 +64,7 @@ public class TransferServiceImpl implements TransferService {
                 transfer.setExchangeRate(exchangeRate);
                 quantity = quantity.multiply(new BigDecimal(exchangeRate));
             } else {
-                byte rate = (byte) (Math.random() * 2);
+                double rate = Math.random() * 2;
                 //TODO exception with rate
             }
         }

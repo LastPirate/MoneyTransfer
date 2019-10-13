@@ -44,7 +44,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Transfer extends TableImpl<TransferRecord> {
 
-    private static final long serialVersionUID = -1230440644;
+    private static final long serialVersionUID = 190263603;
 
     /**
      * The reference instance of <code>PUBLIC.TRANSFER</code>
@@ -77,12 +77,12 @@ public class Transfer extends TableImpl<TransferRecord> {
     /**
      * The column <code>PUBLIC.TRANSFER.EXCHANGE_RATE</code>.
      */
-    public final TableField<TransferRecord, Byte> EXCHANGE_RATE = createField(DSL.name("EXCHANGE_RATE"), org.jooq.impl.SQLDataType.TINYINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.TINYINT)), this, "");
+    public final TableField<TransferRecord, Double> EXCHANGE_RATE = createField(DSL.name("EXCHANGE_RATE"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.DOUBLE)), this, "");
 
     /**
      * The column <code>PUBLIC.TRANSFER.DESCRIPTION</code>.
      */
-    public final TableField<TransferRecord, String> DESCRIPTION = createField(DSL.name("DESCRIPTION"), org.jooq.impl.SQLDataType.VARCHAR(200).nullable(true), this, "");
+    public final TableField<TransferRecord, String> DESCRIPTION = createField(DSL.name("DESCRIPTION"), org.jooq.impl.SQLDataType.VARCHAR(200), this, "");
 
     /**
      * The column <code>PUBLIC.TRANSFER.SENDER_ID</code>.
@@ -196,7 +196,7 @@ public class Transfer extends TableImpl<TransferRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Long, BigDecimal, LocalDateTime, Byte, String, Long, Long> fieldsRow() {
+    public Row7<Long, BigDecimal, LocalDateTime, Double, String, Long, Long> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

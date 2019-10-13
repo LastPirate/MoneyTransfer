@@ -67,7 +67,7 @@ public class Application extends AbstractModule {
                     .column(Transfer.TRANSFER.ID, SQLDataType.BIGINT.nullable(false).identity(true))
                     .column(Transfer.TRANSFER.QUANTITY, SQLDataType.DECIMAL(20, 2).nullable(false))
                     .column(Transfer.TRANSFER.MOMENT, SQLDataType.LOCALDATETIME.nullable(false).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)))
-                    .column(Transfer.TRANSFER.EXCHANGE_RATE, SQLDataType.TINYINT.nullable(false).defaultValue(DSL.field("1", SQLDataType.TINYINT)))
+                    .column(Transfer.TRANSFER.EXCHANGE_RATE, SQLDataType.DOUBLE.nullable(false).defaultValue(DSL.field("1", SQLDataType.DOUBLE)))
                     .column(Transfer.TRANSFER.DESCRIPTION, SQLDataType.VARCHAR(200).nullable(true))
                     .column(Transfer.TRANSFER.SENDER_ID, SQLDataType.BIGINT.nullable(false))
                     .column(Transfer.TRANSFER.RECIPIENT_ID, SQLDataType.BIGINT.nullable(false))

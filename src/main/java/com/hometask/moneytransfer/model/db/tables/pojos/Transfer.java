@@ -24,12 +24,12 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Transfer implements Serializable {
 
-    private static final long serialVersionUID = -1980477184;
+    private static final long serialVersionUID = 717737678;
 
     private Long          id;
     private BigDecimal    quantity;
     private LocalDateTime moment;
-    private Byte          exchangeRate;
+    private Double        exchangeRate;
     private String        description;
     private Long          senderId;
     private Long          recipientId;
@@ -50,7 +50,7 @@ public class Transfer implements Serializable {
         Long          id,
         BigDecimal    quantity,
         LocalDateTime moment,
-        Byte          exchangeRate,
+        Double        exchangeRate,
         String        description,
         Long          senderId,
         Long          recipientId
@@ -88,11 +88,11 @@ public class Transfer implements Serializable {
         this.moment = moment;
     }
 
-    public Byte getExchangeRate() {
+    public Double getExchangeRate() {
         return this.exchangeRate;
     }
 
-    public void setExchangeRate(Byte exchangeRate) {
+    public void setExchangeRate(Double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 

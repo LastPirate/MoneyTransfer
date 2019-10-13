@@ -11,7 +11,7 @@ public interface TransferService {
 
     Transfer payoutTransfer(Long walletId, BigDecimal quantity);
 
-    Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Byte exchangeRate);
+    Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Double exchangeRate);
 
     List<Transfer> getTransferBook();
 

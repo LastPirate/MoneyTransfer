@@ -101,14 +101,14 @@ public class TransferDao extends DAOImpl<TransferRecord, com.hometask.moneytrans
     /**
      * Fetch records that have <code>EXCHANGE_RATE BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchRangeOfExchangeRate(Byte lowerInclusive, Byte upperInclusive) {
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchRangeOfExchangeRate(Double lowerInclusive, Double upperInclusive) {
         return fetchRange(Transfer.TRANSFER.EXCHANGE_RATE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>EXCHANGE_RATE IN (values)</code>
      */
-    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchByExchangeRate(Byte... values) {
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Transfer> fetchByExchangeRate(Double... values) {
         return fetch(Transfer.TRANSFER.EXCHANGE_RATE, values);
     }
 
