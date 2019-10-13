@@ -58,7 +58,7 @@ public class Application extends AbstractModule {
                             constraint().primaryKey(Wallet.WALLET.ID),
                             constraint().unique(Wallet.WALLET.ADDRESS),
                             constraint().foreignKey(Wallet.WALLET.ACCOUNT_ID).references(Account.ACCOUNT, Account.ACCOUNT.ID).onDeleteCascade(),
-                            constraint().unique(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY)
+                            constraint().unique(Wallet.WALLET.ACCOUNT_ID, Wallet.WALLET.CURRENCY)
                     ).execute();
 
             dslContext.insertInto(Wallet.WALLET).columns(Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY, Wallet.WALLET.ACCOUNT_ID).values("MAIN", "ANY", 0L);

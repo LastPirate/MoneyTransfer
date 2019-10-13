@@ -13,7 +13,7 @@ public class WalletCustomDao extends WalletDao {
 
     public Wallet fetchWalletByAccountIdAndCurrency(Long accountId, String currency) {
         return DSL.using(this.configuration()).selectFrom(this.getTable())
-                .where(com.hometask.moneytransfer.model.db.tables.Wallet.WALLET.ID.equal(accountId))
+                .where(com.hometask.moneytransfer.model.db.tables.Wallet.WALLET.ACCOUNT_ID.equal(accountId))
                 .and(com.hometask.moneytransfer.model.db.tables.Wallet.WALLET.CURRENCY.equal(currency))
                 .fetchOne(this.mapper());
     }
