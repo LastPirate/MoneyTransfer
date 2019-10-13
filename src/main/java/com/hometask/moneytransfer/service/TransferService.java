@@ -1,6 +1,6 @@
 package com.hometask.moneytransfer.service;
 
-import com.hometask.moneytransfer.model.db.tables.*;
+import com.hometask.moneytransfer.model.tables.pojos.*;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface TransferService {
 
     List<Transfer> getTransferBook();
 
-    void makeTransfer();
+    Transfer makeTransfer();
 }
