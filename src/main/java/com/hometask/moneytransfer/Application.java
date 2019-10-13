@@ -8,10 +8,10 @@ import com.hometask.moneytransfer.controller.TransferController;
 import com.hometask.moneytransfer.service.TransferService;
 import com.hometask.moneytransfer.service.TransferServiceImpl;
 import org.jooq.Configuration;
+import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Application extends AbstractModule {
@@ -31,11 +31,16 @@ public class Application extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(TransferService.class).to(TransferServiceImpl.class);
-        try (Connection connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD)) {
-            bind(Configuration.class).annotatedWith(Names.named("DataBaseConfiguration")).toInstance(DSL.using(connection, SQLDialect.H2).configuration());
+        try {
+            DSLContext dslContext = DSL.using(DriverManager.getConnection(URL, USER_NAME, PASSWORD), SQLDialect.H2);
+
+            bind(Configuration.class)
+                    .annotatedWith(Names.named("DataBaseConfiguration"))
+                    .toInstance(dslContext.configuration());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        bind(TransferService.class).to(TransferServiceImpl.class);
     }
 }
