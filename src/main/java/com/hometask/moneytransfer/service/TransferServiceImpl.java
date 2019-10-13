@@ -13,28 +13,33 @@ public class TransferServiceImpl implements TransferService {
         return new Account();
     }
 
+    @Override
     public Wallet createWallet() {
         return new Wallet();
     }
 
+    @Override
+    public void putMoney() {
+
+    }
+
+    @Override
+    public void withdrawMoney() {
+
+    }
+
+    @Override
     public List<Transfer> getTransferBook() {
         return new ArrayList<>();
     }
 
+    @Override
     public void makeTransfer() {
 
     }
 
     private byte getExchangeRate() {
         return 1;
-    }
-
-    public void putMoney() {
-
-    }
-
-    public void withdrawMoney() {
-
     }
 
 }

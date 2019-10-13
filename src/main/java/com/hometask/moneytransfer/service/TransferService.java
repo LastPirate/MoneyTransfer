@@ -10,11 +10,11 @@ public interface TransferService {
 
     Wallet createWallet();
 
-    List<Transfer> getTransferBook();
-
-    void makeTransfer();
-
     void putMoney();
 
     void withdrawMoney();
+
+    List<Transfer> getTransferBook();
+
+    void makeTransfer();
 }

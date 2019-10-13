@@ -8,7 +8,6 @@ import com.hometask.moneytransfer.service.TransferService;
 import com.hometask.moneytransfer.service.TransferServiceImpl;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
-import org.jooq.codegen.GenerationTool;
 import org.jooq.impl.DSL;
 
 import java.sql.DriverManager;
