@@ -1,4 +1,4 @@
-package com.hometask.moneytransfer.service;
+package com.hometask.moneytransfer.service.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -10,6 +10,7 @@ import com.hometask.moneytransfer.model.WalletCustomDao;
 import com.hometask.moneytransfer.model.db.tables.Account;
 import com.hometask.moneytransfer.model.db.tables.pojos.Wallet;
 import com.hometask.moneytransfer.model.db.tables.records.WalletRecord;
+import com.hometask.moneytransfer.service.WalletService;
 import org.jooq.*;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DAOImpl;

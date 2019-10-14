@@ -1,4 +1,4 @@
-package com.hometask.moneytransfer.service;
+package com.hometask.moneytransfer.service.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -7,6 +7,7 @@ import com.hometask.moneytransfer.exception.AccountAlreadyExistException;
 import com.hometask.moneytransfer.exception.AccountNotFoundException;
 import com.hometask.moneytransfer.model.AccountCustomDao;
 import com.hometask.moneytransfer.model.db.tables.pojos.Account;
+import com.hometask.moneytransfer.service.AccountService;
 import org.jooq.*;
 import org.jooq.exception.DataAccessException;
 

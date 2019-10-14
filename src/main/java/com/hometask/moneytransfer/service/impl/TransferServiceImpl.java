@@ -1,4 +1,4 @@
-package com.hometask.moneytransfer.service;
+package com.hometask.moneytransfer.service.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -9,6 +9,7 @@ import com.hometask.moneytransfer.exception.NotEnoughBalanceException;
 import com.hometask.moneytransfer.model.TransferCustomDao;
 import com.hometask.moneytransfer.model.WalletCustomDao;
 import com.hometask.moneytransfer.model.db.tables.pojos.*;
+import com.hometask.moneytransfer.service.TransferService;
 import org.jooq.Configuration;
 
 import java.math.BigDecimal;
