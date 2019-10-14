@@ -3,6 +3,9 @@ package com.hometask.moneytransfer.service;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.hometask.moneytransfer.exception.AccountNotFoundException;
+import com.hometask.moneytransfer.exception.CurrencyConversionException;
+import com.hometask.moneytransfer.exception.NotEnoughBalanceException;
 import com.hometask.moneytransfer.model.TransferCustomDao;
 import com.hometask.moneytransfer.model.WalletCustomDao;
 import com.hometask.moneytransfer.model.db.tables.pojos.*;
@@ -24,7 +27,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer refillTransfer(Long walletId, BigDecimal quantity) {
+    public Transfer refillTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
         //Simulation of receipt of money in the transfer system
         Wallet main = walletCustomDao.findById(1L);
         main.setBalance(quantity);
@@ -34,7 +37,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer payoutTransfer(Long walletId, BigDecimal quantity) {
+    public Transfer payoutTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
         // Modeling of withdrawal of money from the transfer system
         Wallet main = walletCustomDao.findById(1L);
         main.setBalance(new BigDecimal(-1 * quantity.doubleValue()));
@@ -44,14 +47,18 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Double exchangeRate) {
+    public Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Double exchangeRate)
+            throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
+
         Wallet sender = walletCustomDao.findById(senderId);
+        if (sender == null) throw new AccountNotFoundException();
 
         if (sender.getBalance().doubleValue() < quantity.doubleValue()) {
-            //TODO exception
+            throw new NotEnoughBalanceException();
         }
 
         Wallet recipient = walletCustomDao.findById(recipientId);
+        if (recipient == null) throw new AccountNotFoundException();
 
         Transfer transfer = new Transfer();
         transfer.setSenderId(senderId);
@@ -64,8 +71,8 @@ public class TransferServiceImpl implements TransferService {
                 transfer.setExchangeRate(exchangeRate);
                 quantity = quantity.multiply(new BigDecimal(exchangeRate));
             } else {
-                double rate = Math.random() * 2;
-                //TODO exception with rate
+                //Simulation get FOREX rate
+                throw new CurrencyConversionException(Math.random() * 2);
             }
         }
 

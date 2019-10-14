@@ -1,11 +1,14 @@
 package com.hometask.moneytransfer.controller;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.hometask.moneytransfer.exception.CurrencyConversionException;
 import com.hometask.moneytransfer.service.TransferService;
 
 import java.math.BigDecimal;
 
+import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
