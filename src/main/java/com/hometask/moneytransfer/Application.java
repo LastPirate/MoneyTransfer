@@ -7,6 +7,7 @@ import com.google.inject.name.Names;
 import com.hometask.moneytransfer.controller.AccountController;
 import com.hometask.moneytransfer.controller.TransferController;
 import com.hometask.moneytransfer.controller.WalletController;
+import com.hometask.moneytransfer.exception.MoneyTransferException;
 import com.hometask.moneytransfer.model.db.tables.Account;
 import com.hometask.moneytransfer.model.db.tables.Transfer;
 import com.hometask.moneytransfer.model.db.tables.Wallet;
@@ -20,6 +21,7 @@ import org.jooq.impl.SQLDataType;
 import java.sql.DriverManager;
 
 import static org.jooq.impl.DSL.constraint;
+import static spark.Spark.exception;
 
 public class Application extends AbstractModule {
 
@@ -32,6 +34,11 @@ public class Application extends AbstractModule {
         injector.getInstance(AccountController.class);
         injector.getInstance(WalletController.class);
         injector.getInstance(TransferController.class);
+
+        exception(MoneyTransferException.class, (exception, request, response) -> {
+            response.status(exception.getCode());
+            response.body(exception.getMessage());
+        });
     }
 
     @Override
@@ -43,7 +50,8 @@ public class Application extends AbstractModule {
                     .column(Account.ACCOUNT.ID, SQLDataType.BIGINT.nullable(false).identity(true))
                     .column(Account.ACCOUNT.NAME, SQLDataType.VARCHAR(20).nullable(false))
                     .constraints(
-                            constraint().primaryKey(Account.ACCOUNT.ID)
+                            constraint().primaryKey(Account.ACCOUNT.ID),
+                            constraint().unique(Account.ACCOUNT.NAME)
                     ).execute();
 
             dslContext.insertInto(Account.ACCOUNT).columns(Account.ACCOUNT.NAME).values("MONEY_SYSTEM").execute();
