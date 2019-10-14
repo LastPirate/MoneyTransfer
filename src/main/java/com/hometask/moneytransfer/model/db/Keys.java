@@ -76,7 +76,7 @@ public class Keys {
         public static final UniqueKey<TransferRecord> CONSTRAINT_7 = Internal.createUniqueKey(Transfer.TRANSFER, "CONSTRAINT_7", Transfer.TRANSFER.ID);
         public static final UniqueKey<WalletRecord> CONSTRAINT_9 = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_9", Wallet.WALLET.ID);
         public static final UniqueKey<WalletRecord> CONSTRAINT_98 = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_98", Wallet.WALLET.ADDRESS);
-        public static final UniqueKey<WalletRecord> CONSTRAINT_982D = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_982D", Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY);
+        public static final UniqueKey<WalletRecord> CONSTRAINT_982D = Internal.createUniqueKey(Wallet.WALLET, "CONSTRAINT_982D", Wallet.WALLET.ACCOUNT_ID, Wallet.WALLET.CURRENCY);
     }
 
     private static class ForeignKeys0 {

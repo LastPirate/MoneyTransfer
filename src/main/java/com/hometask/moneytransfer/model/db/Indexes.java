@@ -54,7 +54,7 @@ public class Indexes {
         public static Index PRIMARY_KEY_7 = Internal.createIndex("PRIMARY_KEY_7", Transfer.TRANSFER, new OrderField[] { Transfer.TRANSFER.ID }, true);
         public static Index CONSTRAINT_INDEX_9 = Internal.createIndex("CONSTRAINT_INDEX_9", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ADDRESS }, true);
         public static Index CONSTRAINT_INDEX_98 = Internal.createIndex("CONSTRAINT_INDEX_98", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ACCOUNT_ID }, false);
-        public static Index CONSTRAINT_INDEX_982 = Internal.createIndex("CONSTRAINT_INDEX_982", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ADDRESS, Wallet.WALLET.CURRENCY }, true);
+        public static Index CONSTRAINT_INDEX_982 = Internal.createIndex("CONSTRAINT_INDEX_982", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ACCOUNT_ID, Wallet.WALLET.CURRENCY }, true);
         public static Index PRIMARY_KEY_9 = Internal.createIndex("PRIMARY_KEY_9", Wallet.WALLET, new OrderField[] { Wallet.WALLET.ID }, true);
     }
 }
