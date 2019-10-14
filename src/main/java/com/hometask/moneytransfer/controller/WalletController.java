@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.hometask.moneytransfer.service.WalletService;
 
+import static com.hometask.moneytransfer.util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -28,7 +29,7 @@ public class WalletController {
                 walletService.createWallet(
                         Long.parseLong(request.queryParams("accountId")),
                         request.queryParams("currency")
-                )
+                ), json()
         );
     }
 
@@ -37,7 +38,7 @@ public class WalletController {
                 walletService.getWallet(
                         Long.parseLong(request.queryParams("accountId")),
                         request.queryParams("currency")
-                )
+                ), json()
         );
     }
 
@@ -45,14 +46,14 @@ public class WalletController {
         get("/getWalletsByAccountId", (request, response) ->
                 walletService.getWalletsByAccountId(
                         Long.parseLong(request.queryParams("accountId"))
-                )
+                ), json()
         );
     }
 
     private void deleteWallet() {
         post("/deleteWallet", (request, response) -> {
                     walletService.deleteWallet(Long.parseLong(request.queryParams("id")));
-                    return "wallet_deleted";
+                    return "{\"result\":\"wallet_deleted\"}";
                 }
         );
     }

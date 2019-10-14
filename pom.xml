@@ -55,30 +55,10 @@
             <version>4.2.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.28</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.jooq/jooq -->
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
-            <version>3.12.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>3.12.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-meta -->
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-meta</artifactId>
             <version>3.12.1</version>
         </dependency>
 
@@ -101,6 +81,13 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.28</version>
         </dependency>
     </dependencies>
 </project>

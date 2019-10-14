@@ -43,7 +43,7 @@ public class TransferServiceImpl implements TransferService {
         main.setBalance(new BigDecimal(-1 * quantity.doubleValue()));
         walletCustomDao.update(main);
 
-        return customerTransfer(walletId, main.getId(), quantity, "Refill Wallet", 1.0);
+        return customerTransfer(walletId, main.getId(), quantity, "Payout Wallet", 1.0);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class TransferServiceImpl implements TransferService {
                 //Simulation get FOREX rate
                 throw new CurrencyConversionException(Math.random() * 2);
             }
-        }
+        } else transfer.setExchangeRate(1.0);
 
         Transfer result = transferCustomDao.insertWithResult(transfer);
 

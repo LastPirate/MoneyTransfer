@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.hometask.moneytransfer.service.AccountService;
 
+import static com.hometask.moneytransfer.util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -24,20 +25,22 @@ public class AccountController {
 
     private void createAccount() {
         post("/createAccount", (request, response) ->
-                accountService.createAccount(request.queryParams("name"))
+                accountService.createAccount(request.queryParams("name")),
+                json()
         );
     }
 
     private void getAccount() {
         get("/getAccount", (request, response) ->
-                accountService.getAccount(request.queryParams("name"))
+                accountService.getAccount(request.queryParams("name")),
+                json()
         );
     }
 
     private void deleteAccount() {
         post("/deleteAccount", (request, response) -> {
                     accountService.deleteAccount(Long.parseLong(request.queryParams("id")));
-                    return "account_deleted";
+                    return "{\"result\":\"account_deleted\"}";
                 }
         );
     }

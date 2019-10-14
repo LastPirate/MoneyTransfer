@@ -21,6 +21,7 @@ import org.jooq.impl.SQLDataType;
 import java.sql.DriverManager;
 
 import static org.jooq.impl.DSL.constraint;
+import static spark.Spark.afterAfter;
 import static spark.Spark.exception;
 
 public class Application extends AbstractModule {
@@ -38,6 +39,10 @@ public class Application extends AbstractModule {
         exception(MoneyTransferException.class, (exception, request, response) -> {
             response.status(exception.getCode());
             response.body(exception.getMessage());
+        });
+
+        afterAfter((request, response) -> {
+            response.type("application/json");
         });
     }
 

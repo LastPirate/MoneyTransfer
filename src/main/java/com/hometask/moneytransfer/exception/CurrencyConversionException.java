@@ -1,15 +1,15 @@
 package com.hometask.moneytransfer.exception;
 
-public class CurrencyConversionException extends Exception {
+import com.google.gson.annotations.Expose;
 
-    private final int code = 449;
+public class CurrencyConversionException extends MoneyTransferException {
+
+    @Expose
     private final double rateOffer;
 
     public CurrencyConversionException(double rateOffer) {
+        super(449, "CURRENCY_CONVERSION");
         this.rateOffer = rateOffer;
     }
 
-    public double getRateOffer() {
-        return rateOffer;
-    }
 }

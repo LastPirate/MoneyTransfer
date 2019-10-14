@@ -8,6 +8,7 @@ import com.hometask.moneytransfer.service.TransferService;
 
 import java.math.BigDecimal;
 
+import static com.hometask.moneytransfer.util.JsonUtil.json;
 import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -34,7 +35,7 @@ public class TransferController {
                 transferService.refillTransfer(
                         Long.parseLong(request.queryParams("walletId")),
                         new BigDecimal(request.queryParams("quantity"))
-                )
+                ), json()
         );
     }
 
@@ -43,7 +44,7 @@ public class TransferController {
                 transferService.payoutTransfer(
                         Long.parseLong(request.queryParams("walletId")),
                         new BigDecimal(request.queryParams("quantity"))
-                )
+                ), json()
         );
     }
 
@@ -55,13 +56,13 @@ public class TransferController {
                         new BigDecimal(request.queryParams("quantity")),
                         request.queryParams("description"),
                         request.params().containsKey("exchangeRate") ? Double.parseDouble(request.queryParams("exchangeRate")) : null
-                )
+                ), json()
         );
     }
 
     private void getTransferBook() {
         get("/getTransferBook", (request, response) ->
-                transferService.getTransferBook()
+                transferService.getTransferBook(), json()
         );
     }
 
@@ -69,7 +70,7 @@ public class TransferController {
         get("/getWalletTransferBook", (request, response) ->
                 transferService.getWalletTransferBook(
                         Long.parseLong(request.queryParams("walletId"))
-                )
+                ), json()
         );
     }
 
