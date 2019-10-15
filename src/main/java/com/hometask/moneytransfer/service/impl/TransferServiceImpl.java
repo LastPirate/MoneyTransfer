@@ -6,6 +6,7 @@ import com.google.inject.name.Named;
 import com.hometask.moneytransfer.exception.AccountNotFoundException;
 import com.hometask.moneytransfer.exception.CurrencyConversionException;
 import com.hometask.moneytransfer.exception.NotEnoughBalanceException;
+import com.hometask.moneytransfer.exception.TransferDescriptionTooLongException;
 import com.hometask.moneytransfer.model.TransferCustomDao;
 import com.hometask.moneytransfer.model.WalletCustomDao;
 import com.hometask.moneytransfer.model.db.tables.pojos.*;
@@ -28,7 +29,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer refillTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
+    public Transfer refillTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException, TransferDescriptionTooLongException {
         //Simulation of receipt of money in the transfer system
         Wallet main = walletCustomDao.findById(1L);
         main.setBalance(quantity);
@@ -38,7 +39,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer payoutTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
+    public Transfer payoutTransfer(Long walletId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException, TransferDescriptionTooLongException {
         // Modeling of withdrawal of money from the transfer system
         Wallet main = walletCustomDao.findById(1L);
         main.setBalance(new BigDecimal(-1 * quantity.doubleValue()));
@@ -49,7 +50,8 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public Transfer customerTransfer(Long senderId, Long recipientId, BigDecimal quantity, String description, Double exchangeRate)
-            throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException {
+            throws AccountNotFoundException, NotEnoughBalanceException, CurrencyConversionException, TransferDescriptionTooLongException {
+        if (description != null && description.length() > 200) throw new TransferDescriptionTooLongException();
 
         Wallet sender = walletCustomDao.findById(senderId);
         if (sender == null) throw new AccountNotFoundException();

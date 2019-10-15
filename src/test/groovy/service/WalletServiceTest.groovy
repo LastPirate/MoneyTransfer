@@ -1,7 +1,6 @@
 package service
 
 import com.google.inject.Inject
-import com.google.inject.name.Named
 import com.hometask.moneytransfer.Application
 import com.hometask.moneytransfer.exception.AccountNotFoundException
 import com.hometask.moneytransfer.exception.CurrencyTickerTooLongException
@@ -10,17 +9,12 @@ import com.hometask.moneytransfer.exception.WalletNotFoundException
 import com.hometask.moneytransfer.model.db.tables.pojos.Wallet
 import com.hometask.moneytransfer.service.AccountService
 import com.hometask.moneytransfer.service.WalletService
-import org.jooq.Configuration
 import spock.guice.UseModules
 import spock.lang.Shared
 import spock.lang.Specification
 
 @UseModules(Application)
 class WalletServiceTest extends Specification {
-
-    @Inject
-    @Named("DataBaseConfiguration")
-    Configuration configuration
 
     @Inject
     @Shared
