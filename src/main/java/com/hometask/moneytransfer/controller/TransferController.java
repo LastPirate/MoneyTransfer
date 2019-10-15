@@ -1,15 +1,12 @@
 package com.hometask.moneytransfer.controller;
 
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.hometask.moneytransfer.exception.CurrencyConversionException;
 import com.hometask.moneytransfer.service.TransferService;
 
 import java.math.BigDecimal;
 
 import static com.hometask.moneytransfer.util.JsonUtil.json;
-import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -55,7 +52,7 @@ public class TransferController {
                         Long.parseLong(request.queryParams("recipientId")),
                         new BigDecimal(request.queryParams("quantity")),
                         request.queryParams("description"),
-                        request.params().containsKey("exchangeRate") ? Double.parseDouble(request.queryParams("exchangeRate")) : null
+                        request.queryParams("exchangeRate") != null ? Double.parseDouble(request.queryParams("exchangeRate")) : null
                 ), json()
         );
     }
