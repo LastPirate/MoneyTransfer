@@ -30,15 +30,20 @@ class WalletServiceTest extends Specification {
     @Shared
     AccountService accountService
 
-    @Shared
-    def account
+    def final ACCOUNT_NAME = "account"
+    def final USD_CURRENCY = "USD"
+    def final EUR_CURRENCY = "EUR"
 
-    @Shared
+    def account
     def wallet
 
-    def setupSpec() {
-        account = accountService.createAccount("account")
-        wallet = walletService.createWallet(account.id, "USD")
+    def setup() {
+        account = accountService.createAccount(ACCOUNT_NAME)
+        wallet = walletService.createWallet(account.id, USD_CURRENCY)
+    }
+
+    def cleanup() {
+        accountService.deleteAccount(account.id)
     }
 
     def "create new wallet"() {
@@ -49,10 +54,19 @@ class WalletServiceTest extends Specification {
 
     def "create used currency wallet"() {
         when:
-        walletService.createWallet(account.id, "USD")
+        walletService.createWallet(account.id, USD_CURRENCY)
 
         then:
         thrown(WalletAlreadyExistException)
+    }
+
+    def "create wallet for uncreated account"() {
+        when:
+        accountService.deleteAccount(account.id)
+        walletService.createWallet(account.id, USD_CURRENCY)
+
+        then:
+        thrown(AccountNotFoundException)
     }
 
     def "create long ticker currency wallet"() {
@@ -65,15 +79,24 @@ class WalletServiceTest extends Specification {
 
     def "get exist wallet"() {
         when:
-        def existWallet = walletService.getWallet(account.id, "USD")
+        def existWallet = walletService.getWallet(account.id, USD_CURRENCY)
 
         then:
         existWallet.id == wallet.id
     }
 
+    def "get wallet for uncreated account"() {
+        when:
+        accountService.deleteAccount(account.id)
+        walletService.getWallet(account.id, EUR_CURRENCY)
+
+        then:
+        thrown(WalletNotFoundException)
+    }
+
     def "get wallet for unregistered currency"() {
         when:
-        walletService.getWallet(account.id, "EUR")
+        walletService.getWallet(account.id, EUR_CURRENCY)
 
         then:
         thrown(WalletNotFoundException)
@@ -81,7 +104,7 @@ class WalletServiceTest extends Specification {
 
     def "get all wallets for account"() {
         when:
-        walletService.createWallet(account.id, "EUR")
+        walletService.createWallet(account.id, EUR_CURRENCY)
         List<Wallet> wallets = walletService.getWalletsByAccountId(account.id)
 
         then:
@@ -94,24 +117,7 @@ class WalletServiceTest extends Specification {
 
         then:
         List<Wallet> wallets = walletService.getWalletsByAccountId(account.id)
-        wallets.size() == 1
-    }
-
-    def "get wallet for uncreated account"() {
-        when:
-        accountService.deleteAccount(account.id)
-        walletService.getWallet(account.id, "EUR")
-
-        then:
-        thrown(WalletNotFoundException)
-    }
-
-    def "create wallet for uncreated account"() {
-        when:
-        walletService.createWallet(account.id, "USD")
-
-        then:
-        thrown(AccountNotFoundException)
+        wallets.size() == 0
     }
 
 }

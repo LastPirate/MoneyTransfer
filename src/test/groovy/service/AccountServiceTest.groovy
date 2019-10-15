@@ -22,22 +22,27 @@ class AccountServiceTest extends Specification {
     @Shared
     AccountService accountService
 
-    @Shared
+    def final ACCOUNT_NAME = "account"
+
     def account
 
-    def setupSpec() {
-        account = accountService.createAccount("account")
+    def setup() {
+        account = accountService.createAccount(ACCOUNT_NAME)
+    }
+
+    def cleanup() {
+        accountService.deleteAccount(account.id)
     }
 
     def "create new account"() {
         expect:
         account != null
-        account.name == "account"
+        account.name == ACCOUNT_NAME
     }
 
     def "create exist account"() {
         when:
-        accountService.createAccount("account")
+        accountService.createAccount(ACCOUNT_NAME)
 
         then:
         thrown(AccountAlreadyExistException)
@@ -45,21 +50,26 @@ class AccountServiceTest extends Specification {
 
     def "get exist account"() {
         when:
-        def gotAccount = accountService.getAccount("account")
+        def gotAccount = accountService.getAccount(ACCOUNT_NAME)
 
         then:
         gotAccount != null
         account.id == gotAccount.id && account.name == gotAccount.name
     }
 
-    def "delete account"() {
-        expect:
-        accountService.deleteAccount(account.id)
-    }
-
     def "get uncreated account"() {
         when:
-        accountService.getAccount("account")
+        accountService.deleteAccount(account.id)
+        accountService.getAccount(ACCOUNT_NAME)
+
+        then:
+        thrown(AccountNotFoundException)
+    }
+
+    def "delete account"() {
+        when:
+        accountService.deleteAccount(account.id)
+        accountService.getAccount(ACCOUNT_NAME)
 
         then:
         thrown(AccountNotFoundException)
