@@ -20,13 +20,13 @@ class AccountServiceTest extends Specification {
 
     @Inject
     @Shared
-    AccountService accountServiceImpl
+    AccountService accountService
 
     @Shared
     def account
 
     def setupSpec() {
-        account = accountServiceImpl.createAccount("account")
+        account = accountService.createAccount("account")
     }
 
     def "create new account"() {
@@ -37,7 +37,7 @@ class AccountServiceTest extends Specification {
 
     def "create exist account"() {
         when:
-        accountServiceImpl.createAccount("account")
+        accountService.createAccount("account")
 
         then:
         thrown(AccountAlreadyExistException)
@@ -45,7 +45,7 @@ class AccountServiceTest extends Specification {
 
     def "get exist account"() {
         when:
-        def gotAccount = accountServiceImpl.getAccount("account")
+        def gotAccount = accountService.getAccount("account")
 
         then:
         gotAccount != null
@@ -54,12 +54,12 @@ class AccountServiceTest extends Specification {
 
     def "delete account"() {
         expect:
-        accountServiceImpl.deleteAccount(account.id)
+        accountService.deleteAccount(account.id)
     }
 
     def "get uncreated account"() {
         when:
-        accountServiceImpl.getAccount("account")
+        accountService.getAccount("account")
 
         then:
         thrown(AccountNotFoundException)
