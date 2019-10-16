@@ -19,6 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Singleton
 public class WalletServiceImpl implements WalletService {
@@ -33,7 +34,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet createWallet(Long accountId, String currency) throws WalletAlreadyExistException, AccountNotFoundException, CurrencyTickerTooLongException {
         try {
-            return walletCustomDao.insertWithResult(accountId, currency, accountId.toString() + System.currentTimeMillis());
+            return walletCustomDao.insertWithResult(accountId, currency, accountId.toString() + UUID.randomUUID().toString());
         } catch (DataAccessException e) {
             String message = e.getMessage();
             if (message.contains("CONSTRAINT_982")) throw new AccountNotFoundException();

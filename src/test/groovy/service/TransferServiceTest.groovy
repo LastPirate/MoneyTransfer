@@ -1,6 +1,7 @@
 package service
 
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import com.hometask.moneytransfer.Application
 import com.hometask.moneytransfer.exception.AccountNotFoundException
 import com.hometask.moneytransfer.exception.CurrencyConversionException
@@ -9,12 +10,20 @@ import com.hometask.moneytransfer.exception.TransferDescriptionTooLongException
 import com.hometask.moneytransfer.service.AccountService
 import com.hometask.moneytransfer.service.TransferService
 import com.hometask.moneytransfer.service.WalletService
+import org.jooq.Configuration
 import spock.guice.UseModules
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
+@Unroll
 @UseModules(Application)
 class TransferServiceTest extends Specification {
+
+    @Shared
+    @Inject
+    @Named("DataBaseConfiguration")
+    Configuration configuration
 
     @Inject
     @Shared
@@ -56,6 +65,10 @@ class TransferServiceTest extends Specification {
     def cleanup() {
         accountService.deleteAccount(senderAccount.id)
         accountService.deleteAccount(recipientAccount.id)
+    }
+
+    def cleanupSpec() {
+        configuration.connectionProvider().acquire().close()
     }
 
     def "make refill transfer"() {

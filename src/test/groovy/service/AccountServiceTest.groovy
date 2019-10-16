@@ -1,16 +1,25 @@
 package service
 
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import com.hometask.moneytransfer.Application
 import com.hometask.moneytransfer.exception.AccountAlreadyExistException
 import com.hometask.moneytransfer.exception.AccountNotFoundException
 import com.hometask.moneytransfer.service.AccountService
+import org.jooq.Configuration
 import spock.guice.UseModules
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
+@Unroll
 @UseModules(Application)
 class AccountServiceTest extends Specification {
+
+    @Shared
+    @Inject
+    @Named("DataBaseConfiguration")
+    Configuration configuration
 
     @Inject
     @Shared
@@ -26,6 +35,10 @@ class AccountServiceTest extends Specification {
 
     def cleanup() {
         accountService.deleteAccount(account.id)
+    }
+
+    def cleanupSpec() {
+        configuration.connectionProvider().acquire().close()
     }
 
     def "create new account"() {
