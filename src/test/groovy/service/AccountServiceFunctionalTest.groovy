@@ -15,7 +15,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 @UseModules(Application)
-class AccountServiceTest extends Specification {
+class AccountServiceFunctionalTest extends Specification {
 
     @Shared
     @Inject
