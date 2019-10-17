@@ -70,13 +70,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean transferBetweenAccounts(Long senderId, Long recipientId, BigDecimal quantity)
             throws AccountNotFoundException, NotEnoughBalanceException {
-
         Account sender = Optional.ofNullable(accountCustomDao.findById(senderId)).orElseThrow(AccountNotFoundException::new);
-
-        if (sender.getBalance().doubleValue() < quantity.doubleValue()) {
-            throw new NotEnoughBalanceException();
-        }
-
+        if (sender.getBalance().doubleValue() < quantity.doubleValue()) throw new NotEnoughBalanceException();
         Account recipient = Optional.ofNullable(accountCustomDao.findById(recipientId)).orElseThrow(AccountNotFoundException::new);
 
         sender.setBalance(sender.getBalance().subtract(quantity));

@@ -6,6 +6,7 @@ import com.hometask.moneytransfer.Application
 import com.hometask.moneytransfer.exception.AccountAlreadyExistException
 import com.hometask.moneytransfer.exception.AccountNotFoundException
 import com.hometask.moneytransfer.exception.NotEnoughBalanceException
+import com.hometask.moneytransfer.model.AccountCustomDao
 import com.hometask.moneytransfer.service.AccountService
 import org.jooq.Configuration
 import spock.guice.UseModules
@@ -86,19 +87,22 @@ class AccountServiceTest extends Specification {
 
     def "make refill transfer"() {
         when:
-        accountService.refillAccount(firstAccount.id, new BigDecimal(10))
+        def status = accountService.refillAccount(firstAccount.id, new BigDecimal(10))
 
         then:
         accountService.getAccount(FIRST_NAME).balance == 10
+        status
     }
 
     def "make withdraw transfer"() {
         expect:
-        accountService.refillAccount(firstAccount.id, new BigDecimal(10))
+        def refillStatus = accountService.refillAccount(firstAccount.id, new BigDecimal(10))
         accountService.getAccount(FIRST_NAME).balance == 10
+        refillStatus
 
-        accountService.withdrawFromAccount(firstAccount.id, new BigDecimal(10))
+        def withdrawStatus = accountService.withdrawFromAccount(firstAccount.id, new BigDecimal(10))
         accountService.getAccount(FIRST_NAME).balance == 0
+        withdrawStatus
     }
 
     def "make transfer with doesn't exist sender"() {
@@ -129,11 +133,13 @@ class AccountServiceTest extends Specification {
 
     def "make customer transfer"() {
         when:
-        accountService.refillAccount(firstAccount.id, new BigDecimal(10))
+        def refillStatus = accountService.refillAccount(firstAccount.id, new BigDecimal(10))
         secondAccount = accountService.createAccount("second")
-        accountService.transferBetweenAccounts(firstAccount.id, secondAccount.id, new BigDecimal(10))
+        def transferStatus = accountService.transferBetweenAccounts(firstAccount.id, secondAccount.id, new BigDecimal(10))
 
         then:
+        refillStatus
+        transferStatus
         accountService.getAccount(FIRST_NAME).balance == 0
         accountService.getAccount("second").balance == 10
     }
