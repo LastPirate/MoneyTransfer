@@ -54,4 +54,43 @@ class AccountControllerTest extends Specification {
         response.status == 200
     }
 
+    def "Refill account endpoint"() {
+        given:
+        def accountServiceMock = Mock(AccountService)
+        accountController.accountService = accountServiceMock
+
+        when:
+        def response = client.post(uri: client.uri.toString() + '/refill?id=0&quantity=0')
+
+        then:
+        1 * accountServiceMock.refillAccount(0, 0.0)
+        response.status == 200
+    }
+
+    def "Withdraw account endpoint"() {
+        given:
+        def accountServiceMock = Mock(AccountService)
+        accountController.accountService = accountServiceMock
+
+        when:
+        def response = client.post(uri: client.uri.toString() + '/withdraw?id=0&quantity=0')
+
+        then:
+        1 * accountServiceMock.withdrawFromAccount(0, 0.0)
+        response.status == 200
+    }
+
+    def "Customer transfer endpoint"() {
+        given:
+        def accountServiceMock = Mock(AccountService)
+        accountController.accountService = accountServiceMock
+
+        when:
+        def response = client.post(uri: client.uri.toString() + '/transfer?senderId=0&recipientId=1&quantity=2')
+
+        then:
+        1 * accountServiceMock.transferBetweenAccounts(0, 1, 2)
+        response.status == 200
+    }
+
 }

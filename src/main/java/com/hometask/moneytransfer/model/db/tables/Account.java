@@ -9,6 +9,7 @@ import com.hometask.moneytransfer.model.db.Keys;
 import com.hometask.moneytransfer.model.db.Public;
 import com.hometask.moneytransfer.model.db.tables.records.AccountRecord;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -42,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends TableImpl<AccountRecord> {
 
-    private static final long serialVersionUID = -587469950;
+    private static final long serialVersionUID = 1652223002;
 
     /**
      * The reference instance of <code>PUBLIC.ACCOUNT</code>
@@ -66,6 +67,11 @@ public class Account extends TableImpl<AccountRecord> {
      * The column <code>PUBLIC.ACCOUNT.NAME</code>.
      */
     public final TableField<AccountRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.ACCOUNT.BALANCE</code>.
+     */
+    public final TableField<AccountRecord, BigDecimal> BALANCE = createField(DSL.name("BALANCE"), org.jooq.impl.SQLDataType.DECIMAL(20, 2).nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.DECIMAL)), this, "");
 
     /**
      * Create a <code>PUBLIC.ACCOUNT</code> table reference
@@ -152,11 +158,11 @@ public class Account extends TableImpl<AccountRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Long, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<Long, String, BigDecimal> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

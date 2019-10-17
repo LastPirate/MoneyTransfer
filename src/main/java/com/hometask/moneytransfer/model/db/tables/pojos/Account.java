@@ -5,6 +5,7 @@ package com.hometask.moneytransfer.model.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.annotation.Generated;
 
@@ -22,24 +23,28 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = -2008132957;
+    private static final long serialVersionUID = 153228452;
 
-    private Long   id;
-    private String name;
+    private Long       id;
+    private String     name;
+    private BigDecimal balance;
 
     public Account() {}
 
     public Account(Account value) {
         this.id = value.id;
         this.name = value.name;
+        this.balance = value.balance;
     }
 
     public Account(
-        Long   id,
-        String name
+        Long       id,
+        String     name,
+        BigDecimal balance
     ) {
         this.id = id;
         this.name = name;
+        this.balance = balance;
     }
 
     public Long getId() {
@@ -58,12 +63,21 @@ public class Account implements Serializable {
         this.name = name;
     }
 
+    public BigDecimal getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Account (");
 
         sb.append(id);
         sb.append(", ").append(name);
+        sb.append(", ").append(balance);
 
         sb.append(")");
         return sb.toString();
