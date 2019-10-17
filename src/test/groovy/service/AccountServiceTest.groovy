@@ -13,7 +13,6 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
-@Unroll
 @UseModules(Application)
 class AccountServiceTest extends Specification {
 
