@@ -7,6 +7,7 @@ package com.hometask.moneytransfer.model.db.tables.daos;
 import com.hometask.moneytransfer.model.db.tables.Account;
 import com.hometask.moneytransfer.model.db.tables.records.AccountRecord;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -87,5 +88,19 @@ public class AccountDao extends DAOImpl<AccountRecord, com.hometask.moneytransfe
      */
     public com.hometask.moneytransfer.model.db.tables.pojos.Account fetchOneByName(String value) {
         return fetchOne(Account.ACCOUNT.NAME, value);
+    }
+
+    /**
+     * Fetch records that have <code>BALANCE BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Account> fetchRangeOfBalance(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+        return fetchRange(Account.ACCOUNT.BALANCE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>BALANCE IN (values)</code>
+     */
+    public List<com.hometask.moneytransfer.model.db.tables.pojos.Account> fetchByBalance(BigDecimal... values) {
+        return fetch(Account.ACCOUNT.BALANCE, values);
     }
 }

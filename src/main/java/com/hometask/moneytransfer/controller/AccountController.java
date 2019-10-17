@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.hometask.moneytransfer.service.AccountService;
 
+import java.math.BigDecimal;
+
 import static com.hometask.moneytransfer.util.JsonUtil.json;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -21,6 +23,9 @@ public class AccountController {
         createAccount();
         getAccount();
         deleteAccount();
+        refillAccount();
+        withdrawFromAccount();
+        customerTransferBetweenAccounts();
     }
 
     private void createAccount() {
@@ -42,6 +47,34 @@ public class AccountController {
                     accountService.deleteAccount(Long.parseLong(request.queryParams("id")));
                     return "{\"result\":\"account_deleted\"}";
                 }
+        );
+    }
+
+    private void refillAccount() {
+        post("/refill", (request, response) ->
+                accountService.refillAccount(
+                        Long.parseLong(request.queryParams("id")),
+                        new BigDecimal(request.queryParams("quantity"))
+                )
+        );
+    }
+
+    private void withdrawFromAccount() {
+        post("/withdraw", (request, response) ->
+                accountService.withdrawFromAccount(
+                        Long.parseLong(request.queryParams("id")),
+                        new BigDecimal(request.queryParams("quantity"))
+                )
+        );
+    }
+
+    private void customerTransferBetweenAccounts() {
+        post("/transfer", (request, response) ->
+                accountService.transferBetweenAccounts(
+                        Long.parseLong(request.queryParams("senderId")),
+                        Long.parseLong(request.queryParams("recipientId")),
+                        new BigDecimal(request.queryParams("quantity"))
+                )
         );
     }
 }

@@ -5,8 +5,6 @@ package com.hometask.moneytransfer.model.db;
 
 
 import com.hometask.moneytransfer.model.db.tables.Account;
-import com.hometask.moneytransfer.model.db.tables.Transfer;
-import com.hometask.moneytransfer.model.db.tables.Wallet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1169500139;
+    private static final long serialVersionUID = -270833967;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -43,16 +41,6 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.ACCOUNT</code>.
      */
     public final Account ACCOUNT = com.hometask.moneytransfer.model.db.tables.Account.ACCOUNT;
-
-    /**
-     * The table <code>PUBLIC.TRANSFER</code>.
-     */
-    public final Transfer TRANSFER = com.hometask.moneytransfer.model.db.tables.Transfer.TRANSFER;
-
-    /**
-     * The table <code>PUBLIC.WALLET</code>.
-     */
-    public final Wallet WALLET = com.hometask.moneytransfer.model.db.tables.Wallet.WALLET;
 
     /**
      * No further instances allowed
@@ -76,8 +64,6 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Account.ACCOUNT,
-            Transfer.TRANSFER,
-            Wallet.WALLET);
+            Account.ACCOUNT);
     }
 }
