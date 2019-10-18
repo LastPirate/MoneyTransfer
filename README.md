@@ -1,6 +1,11 @@
 # MoneyTransfer API
 Simple RESTful API for money transfers between accounts.
 
+# Actual change notes
+* Decided to cut solution for problem like multi currency, currency conversion and showing transfer history
+* Added unit tests and refactoring of existing ones.
+* Included a little changes for avoiding deadblocks.
+
 ### Main features
 * Based on personal user accounts;
 * Multicurrency for each user;
