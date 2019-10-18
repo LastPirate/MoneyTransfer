@@ -3,6 +3,7 @@ package com.hometask.moneytransfer.service.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.google.inject.persist.Transactional;
 import com.hometask.moneytransfer.exception.AccountAlreadyExistException;
 import com.hometask.moneytransfer.exception.AccountNotFoundException;
 import com.hometask.moneytransfer.exception.NotEnoughBalanceException;
@@ -26,6 +27,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account createAccount(String name) throws AccountAlreadyExistException {
         try {
             return accountCustomDao.insertWithResult(name);
@@ -35,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account getAccount(String name) throws AccountNotFoundException {
         Account account = accountCustomDao.fetchOneByName(name);
         if (account != null) {
@@ -43,11 +46,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void deleteAccount(Long accountId) {
         accountCustomDao.deleteById(accountId);
     }
 
     @Override
+    @Transactional
     public boolean refillAccount(Long accountId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException {
         //Simulation of receipt of money in the transfer system
         Account main = accountCustomDao.findById(1L);
@@ -58,6 +63,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public boolean withdrawFromAccount(Long accountId, BigDecimal quantity) throws AccountNotFoundException, NotEnoughBalanceException {
         // Modeling of withdrawal of money from the transfer system
         Account main = accountCustomDao.findById(1L);
@@ -68,6 +74,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public boolean transferBetweenAccounts(Long senderId, Long recipientId, BigDecimal quantity)
             throws AccountNotFoundException, NotEnoughBalanceException {
         Account sender = Optional.ofNullable(accountCustomDao.findById(senderId)).orElseThrow(AccountNotFoundException::new);
@@ -85,6 +92,4 @@ public class AccountServiceImpl implements AccountService {
 
         return true;
     }
-
-
 }

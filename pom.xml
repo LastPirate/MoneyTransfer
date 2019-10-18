@@ -69,6 +69,13 @@
             <version>4.2.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.inject.extensions/guice-persist -->
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-persist</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.jooq/jooq -->
         <dependency>
             <groupId>org.jooq</groupId>

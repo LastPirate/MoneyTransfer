@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import static org.jooq.impl.DSL.constraint;
 import static spark.Spark.afterAfter;
 import static spark.Spark.exception;
+import static spark.Spark.threadPool;
 
 public class Application extends AbstractModule {
 
@@ -28,8 +29,7 @@ public class Application extends AbstractModule {
     private static final String URL = "jdbc:h2:mem:money_transfer";
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new Application());
-        injector.getInstance(AccountController.class);
+        threadPool(1000);
 
         exception(MoneyTransferException.class, (exception, request, response) -> {
             response.status(exception.getCode());
@@ -39,6 +39,9 @@ public class Application extends AbstractModule {
         afterAfter((request, response) -> {
             response.type("application/json");
         });
+
+        Injector injector = Guice.createInjector(new Application());
+        injector.getInstance(AccountController.class);
     }
 
     @Override
