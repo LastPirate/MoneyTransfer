@@ -25,5 +25,5 @@ Simple RESTful API for money transfers between accounts.
 You can find actual executable standalone file in `/target` repository dir.
 Use standart `java -jar *filename*.jar` command to start server.
 
-### Compile
-This is Maven project so use `mvn clean compile` in repository dir.
+### Package
+This is Maven project so use `mvn clean package` in repository dir.
