@@ -8,10 +8,10 @@ Simple RESTful API for money transfers between accounts.
 
 ### Main features
 * Based on personal user accounts;
-* ~~Multicurrency for each user;
-* ~~Currency conversion at the domestic rate (for transfers between wallets in different currencies);
+* ~~Multicurrency for each user;~~
+* ~~Currency conversion at the domestic rate (for transfers between wallets in different currencies);~~
 * Refill and withdrawal funds;
-* ~~Available user and general transfer book;
+* ~~Available user and general transfer book;~~
 * All accounts ~~and wallets~~ could cloaseable.
 
 ### Other features
